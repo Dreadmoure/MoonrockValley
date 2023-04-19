@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoonrockValley.Domain
 {
-    public class Inventory
+    public class InventoryItem
     {
         /// <summary>
         /// Primary key, specifying the ID of the inventory, ie the place in the inventory 

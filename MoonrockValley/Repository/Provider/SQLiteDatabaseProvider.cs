@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,7 @@ namespace MoonrockValley.Repository
     /// <summary>
     /// class for SQLiteDatabaseProvider which handles the path to the database
     /// </summary>
-    public class SQLiteDatabaseProvider
+    public class SQLiteDatabaseProvider : IDatabaseProvider
     {
         private readonly string connectionString;
 
