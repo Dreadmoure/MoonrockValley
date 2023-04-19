@@ -18,6 +18,9 @@ namespace MoonrockValley
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello Moonrock Valley");
+
+            Console.ReadKey(); 
         }
     }
 }
