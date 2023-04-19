@@ -29,6 +29,8 @@ namespace MoonrockValley.Repository
         public List<UpgradeInstance> GetAllUpgrades()
         {
             //return something
+
+            return new List<UpgradeInstance>();
         }
 
 
