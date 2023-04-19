@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +13,34 @@ namespace MoonrockValley.Repository
     public class Repository
     {
         /// <summary>
+        /// Gets the database provider 
+        /// </summary>
+        protected IDatabaseProvider Provider { get; }
+
+        /// <summary>
+        /// Gets and sets database connection 
+        /// </summary>
+        protected IDbConnection Connection { get; set; }
+
+        /// <summary>
         /// Method used for opening a connection to a database
         /// </summary>
         public void Open()
         {
-            if(connection == null)
+            if(Connection == null)
             {
-                connection = provider.CreateConnection();
+                Connection = Provider.CreateConnection();
             }
-            connection.Open();
+            Connection.Open();
             CreateDatabaseTables();
+        }
+
+        /// <summary>
+        /// Implemented in the specific repository 
+        /// </summary>
+        protected virtual void CreateDatabaseTables()
+        {
+
         }
 
         /// <summary>
@@ -29,7 +48,7 @@ namespace MoonrockValley.Repository
         /// </summary>
         public void Close()
         {
-            connection.Close();
+            Connection.Close();
         }
     }
 }
