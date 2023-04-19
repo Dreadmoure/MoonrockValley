@@ -8,26 +8,27 @@ using System.Threading.Tasks;
 
 namespace MoonrockValley.Repository
 {
-    public class InventoryMapper
+    public class InventoryItemMapper
     {
         /// <summary>
         /// Read the database table for Inventory
         /// </summary>
         /// <param name="reader"></param>
         /// <returns>A list of the Inventory in the database</returns>
-        public List<Inventory> MapInventoryFromReader(SQLiteDataReader reader)
+        public List<InventoryItem> MapInventoryFromReader(SQLiteDataReader reader)
         {
             // make a list for the result 
-            var result = new List<Inventory>();
+            var result = new List<InventoryItem>();
 
             // read all data from the database table for Inventory
             while (reader.Read())
             {
                 var id = reader.GetInt32(0);
-                var inventoryId = reader.GetInt32(1);
+                var itemId = reader.GetInt32(1);
+                var amount = reader.GetInt32(2); 
 
                 // add the new Item, with its data, to the result list 
-                result.Add(new Inventory() { ID = id, ItemID = itemId });
+                result.Add(new InventoryItem() { ID = id, ItemID = itemId, Amount = amount });
             }
 
             // return list of all the Items in the game 
