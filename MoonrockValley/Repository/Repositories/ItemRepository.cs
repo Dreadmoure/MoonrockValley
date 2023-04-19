@@ -18,7 +18,7 @@ namespace MoonrockValley.Repository
         /// <param name="name">Name of the item</param>
         /// <param name="ItemType">Item type</param>
         /// <param name="value">The value of the item</param>
-        public void AddItem(string name, type ItemType, int value)
+        public void AddItem(string name, ItemType type, int value)
         {
 
         }

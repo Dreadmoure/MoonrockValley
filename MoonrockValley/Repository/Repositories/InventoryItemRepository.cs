@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MoonrockValley.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace MoonrockValley.Repository
     /// <summary>
     /// class for the InventoryRepository, this is the players inventory that holds the items the player has
     /// </summary>
-    public class InventoryRepository : Repository
+    public class InventoryItemRepository : Repository
     {
         /// <summary>
         /// method used for adding an item to the InventoryRepository
@@ -26,7 +27,7 @@ namespace MoonrockValley.Repository
         /// method used for returning a list of all the ItemInstances
         /// </summary>
         /// <returns>List of ItemInstance</returns>
-        public List<ItemInstance> GetAllItems()
+        public List<InventoryItem> GetAllItems()
         {
             //return something
         }
