@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace MoonrockValley
 {
+    public enum ItemType
+    {
+        Food,
+        Material,
+        Equipment,
+        Upgrade
+    }
+
     internal class Program
     {
         static void Main(string[] args)
