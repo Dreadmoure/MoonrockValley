@@ -30,6 +30,8 @@ namespace MoonrockValley.Repository
         public List<Item> GetAllItems()
         {
             //return something
+
+            return new List<Item>();
         }
 
         /// <summary>
