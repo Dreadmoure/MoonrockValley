@@ -52,7 +52,7 @@ namespace MoonrockValley
 
             foreach(Item item in itemResult)
             {
-                Console.WriteLine($"{item.ID}, {item.Name}, {item.Type} ,{item.Value}");
+                Console.WriteLine($"{item.ID}, {item.Name}, {item.Type}, {item.Value}");
             }
 
 
@@ -64,7 +64,8 @@ namespace MoonrockValley
             inventoryRepo.Open();
 
             //adding works
-            //inventoryRepo.AddItem(2, 3, 50);
+            inventoryRepo.AddItem(2, 3, 50);
+            inventoryRepo.AddItem(7, 2, 1000);
 
             //update with overloads works
             //inventoryRepo.UpdateItem(2, 2, 25);
@@ -86,6 +87,9 @@ namespace MoonrockValley
             {
                 Console.WriteLine($"{inventoryItem.ID}, {inventoryItem.ItemID}, {inventoryItem.Amount}");
             }
+
+            // CheckInventory works
+            inventoryRepo.CheckInventory();
 
             inventoryRepo.Close();
 
