@@ -29,23 +29,24 @@ namespace MoonrockValley
             var itemRepo = new ItemRepository(provider, itemMapper);
             itemRepo.Open();
 
-            //adding works
+            //Uncomment these to add item
             //itemRepo.AddItem("Apple", ItemType.Food, 50);
             //itemRepo.AddItem("Hat", ItemType.Equipment, 300);
             //itemRepo.AddItem("Wood", ItemType.Material, 25);
 
-            //deleting works
+            //Uncomment this to delete an item
             //itemRepo.DeleteItem(3);
 
-            //update works with overloads
+            //Uncomment this to update an item, below are overloads
             //itemRepo.UpdateItem(4, "Stone", ItemType.Material, 100);
             //itemRepo.UpdateItem(4, "Clay");
             //itemRepo.UpdateItem(5, ItemType.Equipment);
             //itemRepo.UpdateItem(6, 50);
 
+            //prints out the Item list
             Console.WriteLine("Items");
 
-            //GetAllItem works
+            //GetAllItems
             itemResult = itemRepo.GetAllItems();
 
             Console.WriteLine("ID, Name, Type, Value");
@@ -55,32 +56,31 @@ namespace MoonrockValley
                 Console.WriteLine($"{item.ID}, {item.Name}, {item.Type}, {item.Value}");
             }
 
-
             itemRepo.Close();
-
 
             List<InventoryItem> inventoryItemResult;
             var inventoryRepo = new InventoryItemRepository(provider, inventoryItemMapper);
             inventoryRepo.Open();
 
-            //adding works
-            inventoryRepo.AddItem(2, 3, 50);
-            inventoryRepo.AddItem(7, 2, 1000);
+            //Uncomment to add item to inventory
+            //inventoryRepo.AddItem(2, 3, 50);
+            //inventoryRepo.AddItem(7, 2, 1000);
 
-            //update with overloads works
+            //Uncomment to update and item in the inventory, below are overloads and related
             //inventoryRepo.UpdateItem(2, 2, 25);
             //inventoryRepo.UpdateItem(5, 3);
             //inventoryRepo.UpdateItemAmount(5, 100);
             //inventoryRepo.UpdateItemPosition(4, 5);
 
-            //delete works
+            //Uncomment to Delete an item from the inventory
             //inventoryRepo.DeleteItem(2);
 
+            //prints out all the items in the inventory
             Console.WriteLine("\nInventoryItems");
 
             Console.WriteLine("ID, ItemID, Amount");
 
-            //GetAllItems works
+            //GetAllItems
             inventoryItemResult = inventoryRepo.GetAllItems();
 
             foreach (InventoryItem inventoryItem in inventoryItemResult)
@@ -88,7 +88,7 @@ namespace MoonrockValley
                 Console.WriteLine($"{inventoryItem.ID}, {inventoryItem.ItemID}, {inventoryItem.Amount}");
             }
 
-            // CheckInventory works
+            // Prints out all the items in the inventory CheckInventory so the user understands what is in it
             inventoryRepo.CheckInventory();
 
             inventoryRepo.Close();
