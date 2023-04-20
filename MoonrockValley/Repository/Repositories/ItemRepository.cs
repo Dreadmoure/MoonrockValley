@@ -1,6 +1,7 @@
 ﻿using MoonrockValley.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,23 @@ namespace MoonrockValley.Repository
     /// </summary>
     public class ItemRepository : Repository
     {
+        private readonly ItemMapper mapper;
+
+        public ItemRepository(IDatabaseProvider provider, ItemMapper mapper)
+        {
+            Provider = provider;
+            this.mapper = mapper;
+        }
+
+        /// <summary>
+        /// Create the database if it does not exist
+        /// </summary>
+        protected override void CreateDatabaseTables()
+        {
+            var cmd = new SQLiteCommand($"CREATE TABLE IF NOT EXISTS Item (Id INTEGER PRIMARY KEY, Name VARCHAR(50), Type INTEGER, Value INTEGER)", (SQLiteConnection)Connection);
+            cmd.ExecuteNonQuery();
+        }
+
         /// <summary>
         /// Used to add an item to the ItemRepository
         /// </summary>
@@ -20,7 +38,8 @@ namespace MoonrockValley.Repository
         /// <param name="value">The value of the item</param>
         public void AddItem(string name, ItemType type, int value)
         {
-
+            var cmd = new SQLiteCommand($"INSERT INTO Item (Name, Type, Value) VALUES ('{name}','{(int)type}','{value}')", (SQLiteConnection)Connection);
+            cmd.ExecuteNonQuery();
         }
 
         /// <summary>
@@ -29,18 +48,22 @@ namespace MoonrockValley.Repository
         /// <returns>List of Items</returns>
         public List<Item> GetAllItems()
         {
-            //return something
+            var cmd = new SQLiteCommand("SELECT * from Item", (SQLiteConnection)Connection);
+            var reader = cmd.ExecuteReader();
 
-            return new List<Item>();
+            var result = mapper.MapItemsFromReader(reader);
+
+            return result;
         }
 
         /// <summary>
         /// method for updating the item based on its ID
         /// </summary>
         /// <param name="Id">The ID of the Item</param>
-        public void UpdateItem(int id)
+        public void UpdateItem(int id, string name, ItemType type, int value)
         {
-
+            var cmd = new SQLiteCommand($"UPDATE Item set Name = {name}, Type = {type}, Value = {value} WHERE Id = {id}", (SQLiteConnection)Connection);
+            cmd.ExecuteNonQuery();
         }
 
         /// <summary>
@@ -49,7 +72,8 @@ namespace MoonrockValley.Repository
         /// <param name="id">The ID of the Item</param>
         public void DeleteItem(int id)
         {
-
+            var cmd = new SQLiteCommand($"DELETE from Item WHERE Id= {id}", (SQLiteConnection)Connection);
+            cmd.ExecuteNonQuery();
         }
 
     }

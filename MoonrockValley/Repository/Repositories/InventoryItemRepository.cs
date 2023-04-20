@@ -12,6 +12,14 @@ namespace MoonrockValley.Repository
     /// </summary>
     public class InventoryItemRepository : Repository
     {
+        private readonly InventoryItemMapper mapper;
+
+        public InventoryItemRepository(IDatabaseProvider provider, InventoryItemMapper mapper)
+        {
+            Provider = provider;
+            this.mapper = mapper;
+        }
+
         /// <summary>
         /// method used for adding an item to the InventoryRepository
         /// </summary>
