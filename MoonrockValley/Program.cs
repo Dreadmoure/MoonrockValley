@@ -16,8 +16,7 @@ namespace MoonrockValley
     {
         Food,
         Material,
-        Equipment,
-        Upgrade
+        Equipment
     }
 
     internal class Program
