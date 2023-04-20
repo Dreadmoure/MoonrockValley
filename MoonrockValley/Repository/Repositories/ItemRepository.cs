@@ -15,6 +15,12 @@ namespace MoonrockValley.Repository
     {
         private readonly ItemMapper mapper;
 
+
+        /// <summary>
+        /// Constructor for the ItemRepository which takes two parameters
+        /// </summary>
+        /// <param name="provider">The database provider</param>
+        /// <param name="mapper">The item mapper</param>
         public ItemRepository(IDatabaseProvider provider, ItemMapper mapper)
         {
             Provider = provider;
@@ -38,11 +44,14 @@ namespace MoonrockValley.Repository
         /// <param name="value">The value of the item</param>
         public void AddItem(string name, ItemType type, int value)
         {
-            Item foundItem = FindItem(name);
+            var cmd = new SQLiteCommand($"SELECT * from Item WHERE name = '{name}'", (SQLiteConnection)Connection);
+            var reader = cmd.ExecuteReader();
 
-            if(foundItem.Name != name)
+            var result = mapper.MapItemsFromReader(reader).FirstOrDefault();
+
+            if(result == null)
             {
-                var cmd = new SQLiteCommand($"INSERT INTO Item (Name, Type, Value) VALUES ('{name}','{(int)type}','{value}')", (SQLiteConnection)Connection);
+                cmd = new SQLiteCommand($"INSERT INTO Item (Name, Type, Value) VALUES ('{name}','{(int)type}','{value}')", (SQLiteConnection)Connection);
                 cmd.ExecuteNonQuery();
             }
             
@@ -116,21 +125,6 @@ namespace MoonrockValley.Repository
         {
             var cmd = new SQLiteCommand($"DELETE from Item WHERE Id = {id}", (SQLiteConnection)Connection);
             cmd.ExecuteNonQuery();
-        }
-
-        /// <summary>
-        /// Finds item based on its name, used to make sure no two items with the same name can exist
-        /// </summary>
-        /// <param name="name">Name of the item</param>
-        /// <returns>Item</returns>
-        private Item FindItem(string name)
-        {
-            var cmd = new SQLiteCommand($"SELECT * from Item WHERE name = '{name}'", (SQLiteConnection)Connection);
-            var reader = cmd.ExecuteReader();
-
-            var result = mapper.MapItemsFromReader(reader).First();
-
-            return result;
         }
 
     }

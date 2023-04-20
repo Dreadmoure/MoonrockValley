@@ -22,7 +22,7 @@ namespace MoonrockValley
         static void Main(string[] args)
         {
             var itemMapper = new ItemMapper();
-            var inventoryTtemMapper = new InventoryItemMapper();
+            var inventoryItemMapper = new InventoryItemMapper();
             var provider = new SQLiteDatabaseProvider("Data Source=inventory.db;Version=3;new=true");
 
             List<Item> itemResult;
@@ -37,28 +37,57 @@ namespace MoonrockValley
             //deleting works
             //itemRepo.DeleteItem(3);
 
-            //GetAllItem works
-            //itemResult = itemRepo.GetAllItems();
-
-            //foreach(Item item in itemResult)
-            //{
-            //    Console.WriteLine($"{item.ID}, {item.Name}, {item.Type} ,{item.Value}");
-            //}
-
             //update works with overloads
             //itemRepo.UpdateItem(4, "Stone", ItemType.Material, 100);
             //itemRepo.UpdateItem(4, "Clay");
             //itemRepo.UpdateItem(5, ItemType.Equipment);
             //itemRepo.UpdateItem(6, 50);
 
+            Console.WriteLine("Items");
+
+            //GetAllItem works
+            itemResult = itemRepo.GetAllItems();
+
+            Console.WriteLine("ID, Name, Type, Value");
+
+            foreach(Item item in itemResult)
+            {
+                Console.WriteLine($"{item.ID}, {item.Name}, {item.Type} ,{item.Value}");
+            }
+
 
             itemRepo.Close();
 
 
             List<InventoryItem> inventoryItemResult;
+            var inventoryRepo = new InventoryItemRepository(provider, inventoryItemMapper);
+            inventoryRepo.Open();
 
+            //adding works
+            //inventoryRepo.AddItem(2, 3, 50);
 
-            Console.WriteLine("Hello Moonrock Valley");
+            //update with overloads works
+            //inventoryRepo.UpdateItem(2, 2, 25);
+            //inventoryRepo.UpdateItem(5, 3);
+            //inventoryRepo.UpdateItemAmount(5, 100);
+            //inventoryRepo.UpdateItemPosition(4, 5);
+
+            //delete works
+            //inventoryRepo.DeleteItem(2);
+
+            Console.WriteLine("\nInventoryItems");
+
+            Console.WriteLine("ID, ItemID, Amount");
+
+            //GetAllItems works
+            inventoryItemResult = inventoryRepo.GetAllItems();
+
+            foreach (InventoryItem inventoryItem in inventoryItemResult)
+            {
+                Console.WriteLine($"{inventoryItem.ID}, {inventoryItem.ItemID}, {inventoryItem.Amount}");
+            }
+
+            inventoryRepo.Close();
 
             Console.ReadKey(); 
         }
