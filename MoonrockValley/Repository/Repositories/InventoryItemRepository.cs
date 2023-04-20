@@ -47,7 +47,7 @@ namespace MoonrockValley.Repository
             var cmd = new SQLiteCommand($"SELECT * from InventoryItem WHERE Id = '{inventoryId}'", (SQLiteConnection)Connection);
             var reader = cmd.ExecuteReader();
 
-            var result = mapper.MapInventoryFromReader(reader).FirstOrDefault();
+            var result = mapper.MapInventoryItemFromReader(reader).FirstOrDefault();
 
             if(result == null)
             {
@@ -65,7 +65,7 @@ namespace MoonrockValley.Repository
             var cmd = new SQLiteCommand("SELECT * from InventoryItem", (SQLiteConnection)Connection);
             var reader = cmd.ExecuteReader();
 
-            var result = mapper.MapInventoryFromReader(reader);
+            var result = mapper.MapInventoryItemFromReader(reader);
 
             return result;
         }
@@ -117,7 +117,7 @@ namespace MoonrockValley.Repository
             var cmd = new SQLiteCommand($"SELECT * from InventoryItem WHERE Id = '{to}'", (SQLiteConnection)Connection);
             var reader = cmd.ExecuteReader();
 
-            var result = mapper.MapInventoryFromReader(reader).FirstOrDefault();
+            var result = mapper.MapInventoryItemFromReader(reader).FirstOrDefault();
 
             if (result == null)
             {
@@ -134,6 +134,33 @@ namespace MoonrockValley.Repository
         {
             var cmd = new SQLiteCommand($"DELETE from InventoryItem WHERE Id = {inventoryId}", (SQLiteConnection)Connection);
             cmd.ExecuteNonQuery();
+        }
+
+        public void CheckInventory()
+        {
+            var cmd = new SQLiteCommand("SELECT InventoryItem.Id, Item.Name, Item.Type, InventoryItem.Amount, Item.Value*InventoryItem.Amount FROM Item JOIN InventoryItem WHERE Item.Id = InventoryItem.ItemId", (SQLiteConnection)Connection);
+            var reader = cmd.ExecuteReader();
+
+            var results = new List<string>();
+
+            // read all data from the database table for Inventory
+            while (reader.Read())
+            {
+                var id = reader.GetInt32(0);
+                var name = reader.GetString(1);
+                var type = reader.GetInt32(2);
+                var amount = reader.GetInt32(3);
+                var value = reader.GetInt32(4); 
+
+                // add the new Item, with its data, to the result list 
+                results.Add($"{id}, {name}, {(ItemType)type}, {amount}, {value}");
+            }
+
+            Console.WriteLine("\nCheck inventory");
+            foreach (var result in results)
+            {
+                Console.WriteLine(result);
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ namespace MoonrockValley.Repository
         /// </summary>
         /// <param name="reader"></param>
         /// <returns>A list of the Inventory in the database</returns>
-        public List<InventoryItem> MapInventoryFromReader(SQLiteDataReader reader)
+        public List<InventoryItem> MapInventoryItemFromReader(SQLiteDataReader reader)
         {
             // make a list for the result 
             var result = new List<InventoryItem>();
