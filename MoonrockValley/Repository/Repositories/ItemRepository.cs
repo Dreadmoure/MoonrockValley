@@ -38,8 +38,14 @@ namespace MoonrockValley.Repository
         /// <param name="value">The value of the item</param>
         public void AddItem(string name, ItemType type, int value)
         {
-            var cmd = new SQLiteCommand($"INSERT INTO Item (Name, Type, Value) VALUES ('{name}','{(int)type}','{value}')", (SQLiteConnection)Connection);
-            cmd.ExecuteNonQuery();
+            Item foundItem = FindItem(name);
+
+            if(foundItem.Name != name)
+            {
+                var cmd = new SQLiteCommand($"INSERT INTO Item (Name, Type, Value) VALUES ('{name}','{(int)type}','{value}')", (SQLiteConnection)Connection);
+                cmd.ExecuteNonQuery();
+            }
+            
         }
 
         /// <summary>
@@ -59,10 +65,46 @@ namespace MoonrockValley.Repository
         /// <summary>
         /// method for updating the item based on its ID
         /// </summary>
-        /// <param name="Id">The ID of the Item</param>
+        /// <param name="id">id of the item</param>
+        /// <param name="name">name of the item</param>
+        /// <param name="type">type of the item</param>
+        /// <param name="value">value of the item</param>
         public void UpdateItem(int id, string name, ItemType type, int value)
         {
-            var cmd = new SQLiteCommand($"UPDATE Item set Name = {name}, Type = {type}, Value = {value} WHERE Id = {id}", (SQLiteConnection)Connection);
+            var cmd = new SQLiteCommand($"UPDATE Item set Name = '{name}', Type = {(int)type}, Value = {value} WHERE Id = {id}", (SQLiteConnection)Connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// overload method for updating the items name based on its ID
+        /// </summary>
+        /// <param name="id">id of the item</param>
+        /// <param name="name">name of the item</param>
+        public void UpdateItem(int id, string name)
+        {
+            var cmd = new SQLiteCommand($"UPDATE Item set Name = '{name}' WHERE Id = {id}", (SQLiteConnection)Connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// overload method for updating the items type based on its ID
+        /// </summary>
+        /// <param name="id">id of the item</param>
+        /// <param name="type">type of the item</param>
+        public void UpdateItem(int id, ItemType type)
+        {
+            var cmd = new SQLiteCommand($"UPDATE Item set Type = {(int)type} WHERE Id = {id}", (SQLiteConnection)Connection);
+            cmd.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// method for updating the item based on its ID
+        /// </summary>
+        /// <param name="id">id of the item</param>
+        /// <param name="value">value of the item</param>
+        public void UpdateItem(int id, int value)
+        {
+            var cmd = new SQLiteCommand($"UPDATE Item set Value = {value} WHERE Id = {id}", (SQLiteConnection)Connection);
             cmd.ExecuteNonQuery();
         }
 
@@ -72,8 +114,23 @@ namespace MoonrockValley.Repository
         /// <param name="id">The ID of the Item</param>
         public void DeleteItem(int id)
         {
-            var cmd = new SQLiteCommand($"DELETE from Item WHERE Id= {id}", (SQLiteConnection)Connection);
+            var cmd = new SQLiteCommand($"DELETE from Item WHERE Id = {id}", (SQLiteConnection)Connection);
             cmd.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Finds item based on its name, used to make sure no two items with the same name can exist
+        /// </summary>
+        /// <param name="name">Name of the item</param>
+        /// <returns>Item</returns>
+        private Item FindItem(string name)
+        {
+            var cmd = new SQLiteCommand($"SELECT * from Item WHERE name = '{name}'", (SQLiteConnection)Connection);
+            var reader = cmd.ExecuteReader();
+
+            var result = mapper.MapItemsFromReader(reader).First();
+
+            return result;
         }
 
     }
