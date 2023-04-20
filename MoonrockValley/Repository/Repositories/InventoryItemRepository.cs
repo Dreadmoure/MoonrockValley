@@ -136,6 +136,9 @@ namespace MoonrockValley.Repository
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// joins the item and inventoryItem tables, and writes their collective data to the console 
+        /// </summary>
         public void CheckInventory()
         {
             var cmd = new SQLiteCommand("SELECT InventoryItem.Id, Item.Name, Item.Type, InventoryItem.Amount, Item.Value*InventoryItem.Amount FROM Item JOIN InventoryItem WHERE Item.Id = InventoryItem.ItemId", (SQLiteConnection)Connection);
@@ -156,7 +159,9 @@ namespace MoonrockValley.Repository
                 results.Add($"{id}, {name}, {(ItemType)type}, {amount}, {value}");
             }
 
+            // write to console 
             Console.WriteLine("\nCheck inventory");
+            Console.WriteLine("Id, Name, Type, Amount, Value");
             foreach (var result in results)
             {
                 Console.WriteLine(result);
