@@ -35,6 +35,7 @@ namespace MoonrockValley
             //itemRepo.AddItem("Apple", ItemType.Food, 50);
             //itemRepo.AddItem("Hat", ItemType.Equipment, 300);
             //itemRepo.AddItem("Wood", ItemType.Material, 25);
+            AddItems(itemRepo);
 
             //Uncomment this to delete an item
             //itemRepo.DeleteItem(3);
@@ -67,6 +68,7 @@ namespace MoonrockValley
             //Uncomment to add item to inventory
             //inventoryRepo.AddItem(2, 3, 50);
             //inventoryRepo.AddItem(7, 2, 1000);
+            AddInventoryItems(inventoryRepo); 
 
             //Uncomment to update and item in the inventory, below are overloads and related
             //inventoryRepo.UpdateItem(2, 2, 25);
@@ -96,6 +98,27 @@ namespace MoonrockValley
             inventoryRepo.Close();
 
             Console.ReadKey(); 
+        }
+
+        /// <summary>
+        /// dummy method for adding items 
+        /// </summary>
+        /// <param name="itemRepo">repository for items</param>
+        private static void AddItems(ItemRepository itemRepo)
+        {
+            itemRepo.AddItem("Apple", ItemType.Food, 50);
+            itemRepo.AddItem("Hat", ItemType.Equipment, 300);
+            itemRepo.AddItem("Wood", ItemType.Material, 25);
+        }
+
+        /// <summary>
+        /// dummy method for adding invneotryItems
+        /// </summary>
+        /// <param name="inventoryRepo">repository for inventoryItems</param>
+        private static void AddInventoryItems(InventoryItemRepository inventoryRepo)
+        {
+            inventoryRepo.AddItem(2, 3, 50);
+            inventoryRepo.AddItem(7, 2, 1000);
         }
     }
 }
