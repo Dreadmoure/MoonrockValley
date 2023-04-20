@@ -12,6 +12,14 @@ namespace MoonrockValley.Repository
     /// </summary>
     public class UpgradeInstanceRepository : Repository
     {
+        private readonly UpgradeInstanceMapper mapper;
+
+        public UpgradeInstanceRepository(IDatabaseProvider provider, UpgradeInstanceMapper mapper)
+        {
+            Provider = provider;
+            this.mapper = mapper;
+        }
+
         /// <summary>
         /// method used for adding an Upgrade to the UpgradeInstanceRepository
         /// </summary>

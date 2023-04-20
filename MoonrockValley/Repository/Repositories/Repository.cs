@@ -15,7 +15,7 @@ namespace MoonrockValley.Repository
         /// <summary>
         /// Gets the database provider 
         /// </summary>
-        protected IDatabaseProvider Provider { get; }
+        protected IDatabaseProvider Provider { get; set; }
 
         /// <summary>
         /// Gets and sets database connection 
