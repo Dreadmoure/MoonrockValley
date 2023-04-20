@@ -50,18 +50,15 @@
   <ItemGroup>
     <Compile Include="Domain\InventoryItem.cs" />
     <Compile Include="Domain\Item.cs" />
-    <Compile Include="Domain\UpgradeInstance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Provider\IDatabaseProvider.cs" />
     <Compile Include="Repository\Mappers\InventoryItemMapper.cs" />
     <Compile Include="Repository\Mappers\ItemMapper.cs" />
-    <Compile Include="Repository\Mappers\UpgradeInstanceMapper.cs" />
     <Compile Include="Repository\Repositories\InventoryItemRepository.cs" />
     <Compile Include="Repository\Repositories\ItemRepository.cs" />
     <Compile Include="Repository\Repositories\Repository.cs" />
     <Compile Include="Repository\Provider\SQLiteDatabaseProvider.cs" />
-    <Compile Include="Repository\Repositories\UpgradeInstanceRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
