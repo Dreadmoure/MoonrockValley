@@ -9,6 +9,9 @@ using System.Data.SQLite;
 
 namespace MoonrockValley
 {
+    /// <summary>
+    /// enum for defining the type of an item 
+    /// </summary>
     public enum ItemType
     {
         Food,
