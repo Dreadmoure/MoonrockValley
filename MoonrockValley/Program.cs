@@ -29,9 +29,28 @@ namespace MoonrockValley
             var itemRepo = new ItemRepository(provider, itemMapper);
             itemRepo.Open();
 
-            itemRepo.AddItem("Apple", ItemType.Food, 50);
-            itemRepo.AddItem("Hat", ItemType.Equipment, 300);
-            itemRepo.AddItem("Wood", ItemType.Material, 25);
+            //adding works
+            //itemRepo.AddItem("Apple", ItemType.Food, 50);
+            //itemRepo.AddItem("Hat", ItemType.Equipment, 300);
+            //itemRepo.AddItem("Wood", ItemType.Material, 25);
+
+            //deleting works
+            //itemRepo.DeleteItem(3);
+
+            //GetAllItem works
+            //itemResult = itemRepo.GetAllItems();
+
+            //foreach(Item item in itemResult)
+            //{
+            //    Console.WriteLine($"{item.ID}, {item.Name}, {item.Type} ,{item.Value}");
+            //}
+
+            //update works with overloads
+            //itemRepo.UpdateItem(4, "Stone", ItemType.Material, 100);
+            //itemRepo.UpdateItem(4, "Clay");
+            //itemRepo.UpdateItem(5, ItemType.Equipment);
+            //itemRepo.UpdateItem(6, 50);
+
 
             itemRepo.Close();
 
