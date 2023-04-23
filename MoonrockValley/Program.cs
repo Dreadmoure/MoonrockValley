@@ -119,6 +119,7 @@ namespace MoonrockValley
         {
             inventoryRepo.AddItem(2, 3, 50);
             inventoryRepo.AddItem(7, 2, 1000);
+            inventoryRepo.AddItem(1, 7, 1000);
         }
     }
 }

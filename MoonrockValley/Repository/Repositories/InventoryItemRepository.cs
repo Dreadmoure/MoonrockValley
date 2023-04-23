@@ -44,16 +44,33 @@ namespace MoonrockValley.Repository
         /// <param name="amount">the amount of the item</param>
         public void AddItem(int inventoryId, int itemId, int amount)
         {
+            // we need to check if inventory space is occupied 
             var cmd = new SQLiteCommand($"SELECT * from InventoryItem WHERE Id = '{inventoryId}'", (SQLiteConnection)Connection);
             var reader = cmd.ExecuteReader();
 
-            var result = mapper.MapInventoryItemFromReader(reader).FirstOrDefault();
+            var idResult = mapper.MapInventoryItemFromReader(reader).FirstOrDefault();
 
-            if(result == null)
+            // we need to check if itemId exists, since we cannot add item to inventory that does not exist 
+            cmd = new SQLiteCommand($"SELECT Id from Item WHERE Id = '{itemId}'", (SQLiteConnection)Connection);
+            reader = cmd.ExecuteReader();
+
+            var itemIdResults = new List<string>();
+
+            while (reader.Read())
+            {
+                var id = reader.GetInt32(0);
+
+                itemIdResults.Add($"{id}");
+            }
+
+            string itemIdResult = itemIdResults.FirstOrDefault();
+
+            // if inventory id is not occupied, and item exists, then create data 
+            if (idResult == null && itemIdResult != null)
             {
                 cmd = new SQLiteCommand($"INSERT INTO InventoryItem (Id, ItemId, Amount) VALUES ('{inventoryId}','{itemId}','{amount}')", (SQLiteConnection)Connection);
                 cmd.ExecuteNonQuery();
-            }         
+            }
         }
 
         /// <summary>
